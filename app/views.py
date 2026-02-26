@@ -1,6 +1,6 @@
 from app import app
 from flask import render_template, request, redirect, url_for, flash
-
+import datetime
 
 ###
 # Routing for your application.
@@ -18,6 +18,27 @@ def about():
     return render_template('about.html', name="Mary Jane")
 
 
+def format_date_joined(date):
+    return date.strftime("%B, %Y")  # formatted date
+
+@app.route('/profile')
+def profile():
+    date_joined = datetime.date(2026, 1, 7)
+    joined = "Joined " + format_date_joined(date_joined)
+
+    user = {
+        "full_name": "Mopp Head",
+        "username": "mhead",
+        "location": "Calliaqua, St.Vincent and the Grenadines",
+        "bio": "I am a young man interested in making the world a better place. This may be through various projects or inventions that can make people's lives easier. I enjoy working with others so reach out if you would like to join me.",
+        "posts": 19,
+        "following": 306,
+        "followers": 578,
+        "joined": joined,
+        "photo": "man.jpg"
+    }
+
+    return render_template('profile.html', user=user)
 ###
 # The functions below should be applicable to all Flask apps.
 ###
